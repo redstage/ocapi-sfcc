@@ -1,0 +1,2745 @@
+{
+	"info": {
+		"_postman_id": "b8b63f6f-0166-4081-947a-76e22f2e3895",
+		"name": "OCAPI Customizatoin",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "customer",
+			"item": [
+				{
+					"name": "login/registration",
+					"item": [
+						{
+							"name": "customer_auth_guest",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var data = JSON.parse(responseBody);",
+											"",
+											"postman.setEnvironmentVariable(\"jwt_token\", postman.getResponseHeader(\"Authorization\"));",
+											"",
+											"if (data && data.customer_id) {",
+											"    postman.setEnvironmentVariable(\"customer_id\", data.customer_id);",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"type\":\"guest\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{shop_url}}/customers/auth?client_id={{client_id}}",
+									"host": [
+										"{{shop_url}}"
+									],
+									"path": [
+										"customers",
+										"auth"
+									],
+									"query": [
+										{
+											"key": "client_id",
+											"value": "{{client_id}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "customer_auth_external",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var data = JSON.parse(responseBody);",
+											"",
+											"postman.setEnvironmentVariable(\"jwt_token\", postman.getResponseHeader(\"Authorization\"));",
+											"",
+											"if (data && data.customer_id) {",
+											"    postman.setEnvironmentVariable(\"customer_id\", data.customer_id);",
+											"}",
+											"if (data && data.email) {",
+											"    postman.setEnvironmentVariable(\"customer_email\", data.email);",
+											"}",
+											"if (data && data.login) {",
+											"    postman.setEnvironmentVariable(\"login\", data.login);",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{oauth_token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"login\": \"{{auth0_customer_id}}\",\n\t\"client_id\": \"{{client_id}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{shop_url}}/customers/auth/trustedsystem",
+									"host": [
+										"{{shop_url}}"
+									],
+									"path": [
+										"customers",
+										"auth",
+										"trustedsystem"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "customer_registration",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var data = JSON.parse(responseBody);",
+											"",
+											"postman.setEnvironmentVariable(\"jwt_token\", postman.getResponseHeader(\"Authorization\"));",
+											"",
+											"if (data && data.customer_id) {",
+											"    postman.setEnvironmentVariable(\"customer_id\", data.customer_id);",
+											"}",
+											"if (data && data.email) {",
+											"    postman.setEnvironmentVariable(\"customer_email\", data.email);",
+											"}",
+											"if (data && data.login) {",
+											"    postman.setEnvironmentVariable(\"login\", data.login);",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{jwt_token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"customer\": {\n\t\t\"login\": \"john.doe\",\n\t\t\"first_name\": \"John\",\n\t\t\"last_name\": \"Doe\",\n\t\t\"email\": \"john.doe@mail.com\",\n\t\t\"company_name\": \"test\",\n\t\t\"c_newsletterSubscription\": \"no_subscription\",\n\t\t\"c_educatorRole\": \"other\",\n\t\t\"c_emailVerified\": false,\n\t\t\"c_freeText\": \"test text\",\n\t\t\"c_linkedInBio\": \"sssssssss\",\n\t\t\"c_verifiedEducator\": false\n\t},\n\t\"password\": \"`Y-htKsa=k8As~+oGOEN)\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{shop_url}}/customers",
+									"host": [
+										"{{shop_url}}"
+									],
+									"path": [
+										"customers"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "customer_refresh_token",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var data = JSON.parse(responseBody);",
+											"",
+											"postman.setEnvironmentVariable(\"jwt_token\", postman.getResponseHeader(\"Authorization\"));",
+											"",
+											"if (data && data.customer_id) {",
+											"    postman.setEnvironmentVariable(\"customer_id\", data.customer_id);",
+											"}",
+											"if (data && data.email) {",
+											"    postman.setEnvironmentVariable(\"customer_email\", data.email);",
+											"}",
+											"if (data && data.login) {",
+											"    postman.setEnvironmentVariable(\"login\", data.login);",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{jwt_token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"type\": \"credentials\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{shop_url}}/customers/auth?client_id={{client_id}}",
+									"host": [
+										"{{shop_url}}"
+									],
+									"path": [
+										"customers",
+										"auth"
+									],
+									"query": [
+										{
+											"key": "client_id",
+											"value": "{{client_id}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "customer_refresh_token_login",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var data = JSON.parse(responseBody);",
+											"",
+											"postman.setEnvironmentVariable(\"jwt_token\", postman.getResponseHeader(\"Authorization\"));",
+											"",
+											"if (data && data.customer_id) {",
+											"    postman.setEnvironmentVariable(\"customer_id\", data.customer_id);",
+											"}",
+											"if (data && data.email) {",
+											"    postman.setEnvironmentVariable(\"customer_email\", data.email);",
+											"}",
+											"if (data && data.login) {",
+											"    postman.setEnvironmentVariable(\"login\", data.login);",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "{{password}}",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "{{login}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"type\": \"credentials\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{shop_url}}/customers/auth?client_id={{client_id}}",
+									"host": [
+										"{{shop_url}}"
+									],
+									"path": [
+										"customers",
+										"auth"
+									],
+									"query": [
+										{
+											"key": "client_id",
+											"value": "{{client_id}}"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Expected status: 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Valid response\", function () {",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json;",
+									"});"
+								]
+							}
+						}
+					]
+				},
+				{
+					"name": "oauth_tokens",
+					"item": [
+						{
+							"name": "oauth_token",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var valid_status = pm.test(\"Expected status: 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"var valid_response = pm.test(\"Valid Response\", function () {",
+											"    pm.response.to.be.withBody;",
+											"    pm.response.to.be.json;",
+											"});",
+											"",
+											"var data = JSON.parse(responseBody);",
+											"",
+											"postman.setEnvironmentVariable('oauth_token', 'Bearer ' + data.access_token);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/x-www-form-urlencoded",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "Basic MWMyODFiNWEtZDJmMi00MjQ5LTkxNWItYTI0MTJiNmM2MzU4OkpXNzA1bWIxdlpWag==",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{oauth2_url}}?grant_type=client_credentials",
+									"host": [
+										"{{oauth2_url}}"
+									],
+									"query": [
+										{
+											"key": "grant_type",
+											"value": "client_credentials"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "oauth_token_bm",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var valid_status = pm.test(\"Expected status: 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"var valid_response = pm.test(\"Valid Response\", function () {",
+											"    pm.response.to.be.withBody;",
+											"    pm.response.to.be.json;",
+											"});",
+											"",
+											"var data = JSON.parse(responseBody);",
+											"",
+											"postman.setEnvironmentVariable('oauth_token', 'Bearer ' + data.access_token);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/x-www-form-urlencoded",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "Basic ",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{oauth2_url_bm}}?client_id={{client_id}}&grant_type=urn:demandware:params:oauth:grant-type:client-id:dwsid:dwsecuretoken",
+									"host": [
+										"{{oauth2_url_bm}}"
+									],
+									"query": [
+										{
+											"key": "client_id",
+											"value": "{{client_id}}"
+										},
+										{
+											"key": "grant_type",
+											"value": "urn:demandware:params:oauth:grant-type:client-id:dwsid:dwsecuretoken"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "customer_info",
+					"item": [
+						{
+							"name": "get_customer_info",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{shop_url}}/customers/{{customer_id}}",
+									"host": [
+										"{{shop_url}}"
+									],
+									"path": [
+										"customers",
+										"{{customer_id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "customer_update",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"first_name\": \"John\",\n\t\"last_name\": \"Doe\",\n\t\"c_newsletterSubscription\": \"weekly\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{shop_url}}/customers/{{customer_id}}",
+									"host": [
+										"{{shop_url}}"
+									],
+									"path": [
+										"customers",
+										"{{customer_id}}"
+									]
+								},
+								"description": "**Other possible values are**:\r\n- company_name\r\n- c_educatorRole\r\n- c_emailVerified\r\n- c_freeText\r\n- c_verifiedEducator"
+							},
+							"response": []
+						}
+					],
+					"auth": {
+						"type": "apikey",
+						"apikey": [
+							{
+								"key": "value",
+								"value": "{{jwt_token}}",
+								"type": "string"
+							},
+							{
+								"key": "key",
+								"value": "Authorization",
+								"type": "string"
+							}
+						]
+					},
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"No status 500\", function () {",
+									"    pm.response.to.not.have.status(500);",
+									"});",
+									"",
+									"pm.test(\"No status 404\", function () {",
+									"    pm.response.to.not.have.status(404);",
+									"});",
+									"",
+									"pm.test(\"Expected status: 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Valid response\", function () {",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json;",
+									"});"
+								]
+							}
+						}
+					]
+				},
+				{
+					"name": "address",
+					"item": [
+						{
+							"name": "get_customer_address",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var valid_status = pm.test(\"Expected status: 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"var valid_response = pm.test(\"Valid response\", function () {\r",
+											"    pm.response.to.be.withBody;\r",
+											"    pm.response.to.be.json;\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{shop_url}}/customers/{{customer_id}}/addresses",
+									"host": [
+										"{{shop_url}}"
+									],
+									"path": [
+										"customers",
+										"{{customer_id}}",
+										"addresses"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "add_customer_address",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var valid_status = pm.test(\"Expected status: 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"var valid_response = pm.test(\"Valid response\", function () {\r",
+											"    pm.response.to.be.withBody;\r",
+											"    pm.response.to.be.json;\r",
+											"});\r",
+											"\r",
+											"var data = JSON.parse(responseBody);\r",
+											"\r",
+											"if (data && data.address_id) {\r",
+											"    postman.setEnvironmentVariable('customer_address_id', data.address_id);\r",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"address1\": \"2 Harrison Street\",\n    \"address2\": \"Sixth Floor\",\n\t\"address_id\": \"Redstage\",\n\t\"city\": \"London\",\n    \"company_name\": \"Redstage\",\n    \"country_code\": \"US\",\n\t\"first_name\": \"John\",\n\t\"last_name\": \"Doe\",\n    \"phone\": \"+1.415.777.1000\",\n    \"postal_code\": \"94105\",\n    \"state_code\": \"CA\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{shop_url}}/customers/{{customer_id}}/addresses",
+									"host": [
+										"{{shop_url}}"
+									],
+									"path": [
+										"customers",
+										"{{customer_id}}",
+										"addresses"
+									]
+								},
+								"description": "Please check **[CustomerAddress](https://documentation.b2c.commercecloud.salesforce.com/DOC1/topic/com.demandware.dochelp/OCAPI/current/data/Documents/CustomerAddress.html#id-1512734825)** document for reference."
+							},
+							"response": []
+						},
+						{
+							"name": "delete_customer_address",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Expected status: 204\", function () {\r",
+											"    pm.response.to.have.status(204);\r",
+											"});\r",
+											"\r",
+											"postman.setEnvironmentVariable('customer_address_id', '');\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{shop_url}}/customers/{{customer_id}}/addresses/{{customer_address_id}}",
+									"host": [
+										"{{shop_url}}"
+									],
+									"path": [
+										"customers",
+										"{{customer_id}}",
+										"addresses",
+										"{{customer_address_id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "update_customer_address",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var valid_status = pm.test(\"Expected status: 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"var valid_response = pm.test(\"Valid response\", function () {\r",
+											"    pm.response.to.be.withBody;\r",
+											"    pm.response.to.be.json;\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"last_name\": \"New\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{shop_url}}/customers/{{customer_id}}/addresses/{{customer_address_id}}",
+									"host": [
+										"{{shop_url}}"
+									],
+									"path": [
+										"customers",
+										"{{customer_id}}",
+										"addresses",
+										"{{customer_address_id}}"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"auth": {
+						"type": "apikey",
+						"apikey": [
+							{
+								"key": "value",
+								"value": "{{jwt_token}}",
+								"type": "string"
+							},
+							{
+								"key": "key",
+								"value": "Authorization",
+								"type": "string"
+							}
+						]
+					},
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"No status 500\", function () {",
+									"    pm.response.to.not.have.status(500);",
+									"});",
+									"",
+									"pm.test(\"No status 404\", function () {",
+									"    pm.response.to.not.have.status(404);",
+									"});"
+								]
+							}
+						}
+					]
+				},
+				{
+					"name": "baskets",
+					"item": [
+						{
+							"name": "get_customer_baskets",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var valid_status = pm.test(\"Expected status: 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"var valid_response = pm.test(\"Valid Response\", function () {",
+											"    pm.response.to.be.withBody;",
+											"    pm.response.to.be.json;",
+											"});",
+											"",
+											"var data = JSON.parse(responseBody);",
+											"",
+											"if (data.baskets && data.baskets.length) {",
+											"    postman.setEnvironmentVariable('basket_id', data.baskets[0].basket_id);",
+											"    postman.setEnvironmentVariable('shipment_id', data.baskets[0].shipments[0].shipment_id);",
+											"}",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{jwt_token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{shop_url}}/customers/{{customer_id}}/baskets",
+									"host": [
+										"{{shop_url}}"
+									],
+									"path": [
+										"customers",
+										"{{customer_id}}",
+										"baskets"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"No status 500\", function () {",
+									"    pm.response.to.not.have.status(500);",
+									"});",
+									"",
+									"pm.test(\"No status 404\", function () {",
+									"    pm.response.to.not.have.status(404);",
+									"});"
+								]
+							}
+						}
+					]
+				},
+				{
+					"name": "orders",
+					"item": [
+						{
+							"name": "get_customer_orders",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{shop_url}}/customers/{{customer_id}}/orders",
+									"host": [
+										"{{shop_url}}"
+									],
+									"path": [
+										"customers",
+										"{{customer_id}}",
+										"orders"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"auth": {
+						"type": "apikey",
+						"apikey": [
+							{
+								"key": "value",
+								"value": "{{jwt_token}}",
+								"type": "string"
+							},
+							{
+								"key": "key",
+								"value": "Authorization",
+								"type": "string"
+							}
+						]
+					},
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Expected status: 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Valid response\", function () {",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json;",
+									"});",
+									"",
+									"pm.test(\"No status 500\", function () {",
+									"    pm.response.to.not.have.status(500);",
+									"});",
+									"",
+									"pm.test(\"No status 404\", function () {",
+									"    pm.response.to.not.have.status(404);",
+									"});"
+								]
+							}
+						}
+					]
+				},
+				{
+					"name": "payment_methods",
+					"item": [
+						{
+							"name": "get_customer_payment_instruments",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Expected status: 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid response\", function () {\r",
+											"    pm.response.to.be.withBody;\r",
+											"    pm.response.to.be.json;\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{shop_url}}/customers/{{customer_id}}/payment_instruments",
+									"host": [
+										"{{shop_url}}"
+									],
+									"path": [
+										"customers",
+										"{{customer_id}}",
+										"payment_instruments"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "add_customer_payment_instrument",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var valid_status = pm.test(\"Expected status: 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"var valid_response = pm.test(\"Valid Response\", function () {\r",
+											"    pm.response.to.be.withBody;\r",
+											"    pm.response.to.be.json;\r",
+											"});\r",
+											"\r",
+											"var data = JSON.parse(responseBody);\r",
+											"\r",
+											"if (data.payment_instrument_id) {\r",
+											"    postman.setEnvironmentVariable('customer_payment_instrument_id', data.payment_instrument_id);\r",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"payment_card\": {\n    \"card_type\": \"Visa\",\n    \"expiration_month\": 12,\n    \"expiration_year\": 2035,\n    \"holder\": \"Test Test\",\n    \"number\": \"4000000000000001\"\n  },\n  \"payment_method_id\": \"CREDIT_CARD\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{shop_url}}/customers/{{customer_id}}/payment_instruments",
+									"host": [
+										"{{shop_url}}"
+									],
+									"path": [
+										"customers",
+										"{{customer_id}}",
+										"payment_instruments"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "del_customer_payment_instrument",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Expected status: 204\", function () {\r",
+											"    pm.response.to.have.status(204);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{shop_url}}/customers/{{customer_id}}/payment_instruments/{{customer_payment_instrument_id}}",
+									"host": [
+										"{{shop_url}}"
+									],
+									"path": [
+										"customers",
+										"{{customer_id}}",
+										"payment_instruments",
+										"{{customer_payment_instrument_id}}"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"auth": {
+						"type": "apikey",
+						"apikey": [
+							{
+								"key": "value",
+								"value": "{{jwt_token}}",
+								"type": "string"
+							},
+							{
+								"key": "key",
+								"value": "Authorization",
+								"type": "string"
+							}
+						]
+					},
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"No status 500\", function () {",
+									"    pm.response.to.not.have.status(500);",
+									"});",
+									"",
+									"pm.test(\"No status 404\", function () {",
+									"    pm.response.to.not.have.status(404);",
+									"});"
+								]
+							}
+						}
+					]
+				},
+				{
+					"name": "product_lists",
+					"item": [
+						{
+							"name": "get_productists",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "{{jwt_token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{shop_url}}/customers/{{customer_id}}/product_lists",
+									"host": [
+										"{{shop_url}}"
+									],
+									"path": [
+										"customers",
+										"{{customer_id}}",
+										"product_lists"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "create_productlist",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{jwt_token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"name\": \"test\",\n\t\"type\": \"wish_list\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{shop_url}}/customers/{{customer_id}}/product_lists",
+									"host": [
+										"{{shop_url}}"
+									],
+									"path": [
+										"customers",
+										"{{customer_id}}",
+										"product_lists"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "del_productlist",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{jwt_token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{shop_url}}/customers/{{customer_id}}/product_lists/{list_id}",
+									"host": [
+										"{{shop_url}}"
+									],
+									"path": [
+										"customers",
+										"{{customer_id}}",
+										"product_lists",
+										"{list_id}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get_productlist_details",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{jwt_token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{shop_url}}/customers/{{customer_id}}/product_lists/{list_id}",
+									"host": [
+										"{{shop_url}}"
+									],
+									"path": [
+										"customers",
+										"{{customer_id}}",
+										"product_lists",
+										"{list_id}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "update_productlist",
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "{{jwt_token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"name\": \"test list\"\n}"
+								},
+								"url": {
+									"raw": "{{shop_url}}/customers/{{customer_id}}/product_lists/{list_id}",
+									"host": [
+										"{{shop_url}}"
+									],
+									"path": [
+										"customers",
+										"{{customer_id}}",
+										"product_lists",
+										"{list_id}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get_productlist_items",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{jwt_token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{shop_url}}/customers/{{customer_id}}/product_lists/{list_id}/items",
+									"host": [
+										"{{shop_url}}"
+									],
+									"path": [
+										"customers",
+										"{{customer_id}}",
+										"product_lists",
+										"{list_id}",
+										"items"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "productlist_add_item",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{jwt_token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"product_id\": \"id\",\n\t\"type\": \"product\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{shop_url}}/customers/{{customer_id}}/product_lists/{list_id}/items",
+									"host": [
+										"{{shop_url}}"
+									],
+									"path": [
+										"customers",
+										"{{customer_id}}",
+										"product_lists",
+										"{list_id}",
+										"items"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "basket",
+			"item": [
+				{
+					"name": "manage",
+					"item": [
+						{
+							"name": "create_basket",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var valid_status = pm.test(\"Expected status: 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"var valid_response = pm.test(\"Valid Response\", function () {",
+											"    pm.response.to.be.withBody;",
+											"    pm.response.to.be.json;",
+											"});",
+											"",
+											"var data = JSON.parse(responseBody);",
+											"",
+											"if (data && data.basket_id) {",
+											"    postman.setEnvironmentVariable('basket_id', data.basket_id);",
+											"}",
+											"",
+											"if (data && data.shipments && data.shipments.length) {",
+											"    postman.setEnvironmentVariable('shipment_id', data.shipments[0].shipment_id);",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"customer_info\": {\n\t\t\"email\": \"{{customer_email}}\"\n\t},\n\t\"c_gameClassId\": \"1\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{shop_url}}/baskets",
+									"host": [
+										"{{shop_url}}"
+									],
+									"path": [
+										"baskets"
+									]
+								},
+								"description": "Please check [Basket](https://documentation.b2c.commercecloud.salesforce.com/DOC1/topic/com.demandware.dochelp/OCAPI/current/shop/Documents/Basket.html#id-653439951) document for reference."
+							},
+							"response": []
+						},
+						{
+							"name": "delete_basket",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Expected status: 204\", function () {\r",
+											"    pm.response.to.have.status(204);\r",
+											"});\r",
+											"\r",
+											"postman.setEnvironmentVariable('basket_id', '');"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{shop_url}}/baskets/{{basket_id}}",
+									"host": [
+										"{{shop_url}}"
+									],
+									"path": [
+										"baskets",
+										"{{basket_id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "update_basket",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Expected status: 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid response\", function () {\r",
+											"    pm.response.to.be.withBody;\r",
+											"    pm.response.to.be.json;\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"c_gameClassId\": \"test\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{shop_url}}/baskets/{{basket_id}}",
+									"host": [
+										"{{shop_url}}"
+									],
+									"path": [
+										"baskets",
+										"{{basket_id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get_basket",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Expected status: 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid response\", function () {\r",
+											"    pm.response.to.be.withBody;\r",
+											"    pm.response.to.be.json;\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{shop_url}}/baskets/{{basket_id}}",
+									"host": [
+										"{{shop_url}}"
+									],
+									"path": [
+										"baskets",
+										"{{basket_id}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "products",
+					"item": [
+						{
+							"name": "add_product",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var valid_status = pm.test(\"Expected status: 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"var valid_response = pm.test(\"Valid response\", function () {",
+											"    pm.response.to.be.withBody;",
+											"    pm.response.to.be.json;",
+											"});",
+											"",
+											"var data = JSON.parse(responseBody);",
+											"",
+											"if (data.product_items && data.product_items.length) { ",
+											"    postman.setEnvironmentVariable('product_li_id', data.product_items[0].item_id)",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "[\n\t{\n\t\t\"product_id\": \"arc_blue_sky\",\n\t\t\"quantity\": 2,\n\t\t\"c_paidByCustomer\": true,\n\t\t\"c_gameClassId\": \"class_3\"\n\t},\n\t{\n\t\t\"product_id\": \"arc_dx_technologies\",\n\t\t\"quantity\": 2,\n\t\t\"c_paidByCustomer\": true,\n\t\t\"c_gameClassId\": \"class_2\",\n\t\t\"option_items\": [{\n\t\t\t\"option_value_id\": \"advanced\",\n\t\t\t\"option_id\": \"certificate\"\n\t\t}]\n\t}\n]",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{shop_url}}/baskets/{{basket_id}}/items",
+									"host": [
+										"{{shop_url}}"
+									],
+									"path": [
+										"baskets",
+										"{{basket_id}}",
+										"items"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "update_product_li",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var valid_status = pm.test(\"Expected status: 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"var valid_response = pm.test(\"Valid response\", function () {",
+											"    pm.response.to.be.withBody;",
+											"    pm.response.to.be.json;",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"quantity\": 2\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{shop_url}}/baskets/{{basket_id}}/items/{{product_li_id}}",
+									"host": [
+										"{{shop_url}}"
+									],
+									"path": [
+										"baskets",
+										"{{basket_id}}",
+										"items",
+										"{{product_li_id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete_product_li",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var valid_status = pm.test(\"Expected status: 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"postman.setEnvironmentVariable('product_li_id', '');"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{shop_url}}/baskets/{{basket_id}}/items/{{product_li_id}}",
+									"host": [
+										"{{shop_url}}"
+									],
+									"path": [
+										"baskets",
+										"{{basket_id}}",
+										"items",
+										"{{product_li_id}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "address",
+					"item": [
+						{
+							"name": "add_shipping_address",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Expected status: 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid response\", function () {\r",
+											"    pm.response.to.be.withBody;\r",
+											"    pm.response.to.be.json;\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"address1\": \"2 Harrison Street\",\n    \"address2\": \"Sixth Floor\",\n\t\"address_id\": \"Redstage\",\n\t\"city\": \"London\",\n    \"company_name\": \"Redstage\",\n    \"country_code\": \"US\",\n\t\"first_name\": \"John\",\n\t\"last_name\": \"Doe\",\n    \"phone\": \"+1.415.777.1000\",\n    \"postal_code\": \"94105\",\n    \"state_code\": \"CA\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{shop_url}}/baskets/{{basket_id}}/shipments/{{shipment_id}}/shipping_address?use_as_billing=true",
+									"host": [
+										"{{shop_url}}"
+									],
+									"path": [
+										"baskets",
+										"{{basket_id}}",
+										"shipments",
+										"{{shipment_id}}",
+										"shipping_address"
+									],
+									"query": [
+										{
+											"key": "use_as_billing",
+											"value": "true"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "add_billing_address",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Expected status: 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid response\", function () {\r",
+											"    pm.response.to.be.withBody;\r",
+											"    pm.response.to.be.json;\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"address1\": \"2 Harrison Street\",\n    \"address2\": \"Sixth Floor\",\n\t\"address_id\": \"Redstage\",\n\t\"city\": \"London\",\n    \"company_name\": \"Redstage\",\n    \"country_code\": \"US\",\n\t\"first_name\": \"John\",\n\t\"last_name\": \"Doe\",\n    \"phone\": \"+1.415.777.1000\",\n    \"postal_code\": \"94105\",\n    \"state_code\": \"CA\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{shop_url}}/baskets/{{basket_id}}/billing_address?use_as_shipping=true",
+									"host": [
+										"{{shop_url}}"
+									],
+									"path": [
+										"baskets",
+										"{{basket_id}}",
+										"billing_address"
+									],
+									"query": [
+										{
+											"key": "use_as_shipping",
+											"value": "true"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "shipping_methods",
+					"item": [
+						{
+							"name": "get_shipping_methods",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var valid_status = pm.test(\"Expected status: 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"var valid_response = pm.test(\"Valid response\", function () {",
+											"    pm.response.to.be.withBody;",
+											"    pm.response.to.be.json;",
+											"});",
+											"",
+											"var data = JSON.parse(responseBody);",
+											"",
+											"if (data.applicable_shipping_methods && data.applicable_shipping_methods.length) { ",
+											"    postman.setEnvironmentVariable('shipping_method_id', data.applicable_shipping_methods[0].id);",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{shop_url}}/baskets/{{basket_id}}/shipments/{{shipment_id}}/shipping_methods",
+									"host": [
+										"{{shop_url}}"
+									],
+									"path": [
+										"baskets",
+										"{{basket_id}}",
+										"shipments",
+										"{{shipment_id}}",
+										"shipping_methods"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "submit_shipping_method",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{jwt_token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"id\": \"{{shipping_method_id}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{shop_url}}/baskets/{{basket_id}}/shipments/{{shipment_id}}/shipping_method",
+									"host": [
+										"{{shop_url}}"
+									],
+									"path": [
+										"baskets",
+										"{{basket_id}}",
+										"shipments",
+										"{{shipment_id}}",
+										"shipping_method"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "shipments",
+					"item": [
+						{
+							"name": "create_shipment",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Expected status: 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid response\", function () {\r",
+											"    pm.response.to.be.withBody;\r",
+											"    pm.response.to.be.json;\r",
+											"});\r",
+											"\r",
+											"var data = JSON.parse(responseBody);\r",
+											"\r",
+											"if (data && data.shipping_items.length) { \r",
+											"    postman.setEnvironmentVariable('shipment_id', JSON.parse(pm.request.body).shipment_id);\r",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"shipment_id\": \"id2\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{shop_url}}/baskets/{{basket_id}}/shipments",
+									"host": [
+										"{{shop_url}}"
+									],
+									"path": [
+										"baskets",
+										"{{basket_id}}",
+										"shipments"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete_shipment",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Expected status: 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"postman.setEnvironmentVariable('shipment_id', '');"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{shop_url}}/baskets/{{basket_id}}/shipments/{{shipment_id}}",
+									"host": [
+										"{{shop_url}}"
+									],
+									"path": [
+										"baskets",
+										"{{basket_id}}",
+										"shipments",
+										"{{shipment_id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "update_shipment",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Expected status: 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Valid response\", function () {\r",
+											"    pm.response.to.be.withBody;\r",
+											"    pm.response.to.be.json;\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"c_endDate\": \"2020-12-18\",\n\t\"c_startDate\": \"2020-06-18\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{shop_url}}/baskets/{{basket_id}}/shipments/{{shipment_id}}",
+									"host": [
+										"{{shop_url}}"
+									],
+									"path": [
+										"baskets",
+										"{{basket_id}}",
+										"shipments",
+										"{{shipment_id}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "payment_methods",
+					"item": [
+						{
+							"name": "credit_card",
+							"item": [
+								{
+									"name": "set_payment_method_credit_card",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"var valid_status = pm.test(\"Expected status: 200\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});",
+													"",
+													"var valid_response = pm.test(\"Valid Response\", function () {",
+													"    pm.response.to.be.withBody;",
+													"    pm.response.to.be.json;",
+													"});",
+													"",
+													"var data = JSON.parse(responseBody);",
+													"",
+													"if (data.payment_instruments && data.payment_instruments.length) {",
+													"    postman.setEnvironmentVariable('payment_instrument_id', data.payment_instruments[0].payment_instrument_id);",
+													"    postman.setEnvironmentVariable('payment_method', data.payment_instruments[0].payment_method_id);",
+													"}"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"payment_card\": {\n        \"card_type\": \"Visa\",\n        \"expiration_month\": 12,\n        \"expiration_year\": 2031,\n        \"holder\": \"John Doe\",\n        \"number\": \"4000000000000010\",\n        \"security_code\": \"838\"\n    },\n    \"payment_method_id\": \"{{payment_method}}\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{shop_url}}/baskets/{{basket_id}}/payment_instruments",
+											"host": [
+												"{{shop_url}}"
+											],
+											"path": [
+												"baskets",
+												"{{basket_id}}",
+												"payment_instruments"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "get_applicable_methods",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var valid_status = pm.test(\"Expected status: 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"var valid_response = pm.test(\"Valid response\", function () {",
+											"    pm.response.to.be.withBody;",
+											"    pm.response.to.be.json;",
+											"});",
+											"",
+											"var data = JSON.parse(responseBody);",
+											"",
+											"if (data.applicable_payment_methods && data.applicable_payment_methods.length) {",
+											"    postman.setEnvironmentVariable('payment_method', data.applicable_payment_methods[0].id);",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{shop_url}}/baskets/{{basket_id}}/payment_methods",
+									"host": [
+										"{{shop_url}}"
+									],
+									"path": [
+										"baskets",
+										"{{basket_id}}",
+										"payment_methods"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "set_payment_method_class_pay",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var valid_status = pm.test(\"Expected status: 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"var valid_response = pm.test(\"Valid response\", function () {",
+											"    pm.response.to.be.withBody;",
+											"    pm.response.to.be.json;",
+											"});",
+											"",
+											"var data = JSON.parse(responseBody);",
+											"",
+											"if (data.payment_instruments && data.payment_instruments.length) {",
+											"    postman.setEnvironmentVariable('payment_instrument_id', data.payment_instruments[0].payment_instrument_id);",
+											"    postman.setEnvironmentVariable('payment_method', data.payment_instruments[0].payment_method_id);",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"payment_method_id\": \"CLASS_PAY\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{shop_url}}/baskets/{{basket_id}}/payment_instruments",
+									"host": [
+										"{{shop_url}}"
+									],
+									"path": [
+										"baskets",
+										"{{basket_id}}",
+										"payment_instruments"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "set_customer_payment_instrument",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var valid_status = pm.test(\"Expected status: 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"var valid_response = pm.test(\"Valid response\", function () {\r",
+											"    pm.response.to.be.withBody;\r",
+											"    pm.response.to.be.json;\r",
+											"});\r",
+											"\r",
+											"var data = JSON.parse(responseBody);\r",
+											"\r",
+											"if (data.payment_instruments && data.payment_instruments.length) {\r",
+											"    postman.setEnvironmentVariable('payment_instrument_id', data.payment_instruments[0].payment_instrument_id);\r",
+											"    postman.setEnvironmentVariable('payment_method', data.payment_instruments[0].payment_method_id);\r",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"customer_payment_instrument_id\": \"{{customer_payment_instrument_id}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{shop_url}}/baskets/{{basket_id}}/payment_instruments",
+									"host": [
+										"{{shop_url}}"
+									],
+									"path": [
+										"baskets",
+										"{{basket_id}}",
+										"payment_instruments"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete_payment_method",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Expected status: 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"postman.setEnvironmentVariable('payment_instrument_id', '');"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{shop_url}}/baskets/{{basket_id}}/payment_instruments/{{payment_instrument_id}}",
+									"host": [
+										"{{shop_url}}"
+									],
+									"path": [
+										"baskets",
+										"{{basket_id}}",
+										"payment_instruments",
+										"{{payment_instrument_id}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "coupons",
+					"item": [
+						{
+							"name": "add_coupon",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var valid_status = pm.test(\"Expected status: 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"var valid_response = pm.test(\"Valid response\", function () {\r",
+											"    pm.response.to.be.withBody;\r",
+											"    pm.response.to.be.json;\r",
+											"});\r",
+											"\r",
+											"var data = JSON.parse(responseBody);\r",
+											"\r",
+											"if (data && data.coupon_items && data.coupon_items.length) {\r",
+											"    postman.setEnvironmentVariable('coupon_item_id', data.coupon_items[0].coupon_item_id);\r",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"code\": \"ARC-20-OFF\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{shop_url}}/baskets/{{basket_id}}/coupons",
+									"host": [
+										"{{shop_url}}"
+									],
+									"path": [
+										"baskets",
+										"{{basket_id}}",
+										"coupons"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete_coupon",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Expected status: 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"postman.setEnvironmentVariable('coupon_item_id', '');"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{shop_url}}/baskets/{{basket_id}}/coupons/{{coupon_item_id}}",
+									"host": [
+										"{{shop_url}}"
+									],
+									"path": [
+										"baskets",
+										"{{basket_id}}",
+										"coupons",
+										"{{coupon_item_id}}"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"auth": {
+						"type": "apikey",
+						"apikey": [
+							{
+								"key": "value",
+								"value": "{{jwt_token}}",
+								"type": "string"
+							},
+							{
+								"key": "key",
+								"value": "Authorization",
+								"type": "string"
+							}
+						]
+					}
+				}
+			],
+			"auth": {
+				"type": "apikey",
+				"apikey": [
+					{
+						"key": "value",
+						"value": "{{jwt_token}}",
+						"type": "string"
+					},
+					{
+						"key": "key",
+						"value": "Authorization",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"No status 500\", function () {",
+							"    pm.response.to.not.have.status(500);",
+							"});",
+							"",
+							"pm.test(\"No status 404\", function () {",
+							"    pm.response.to.not.have.status(404);",
+							"});"
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "order",
+			"item": [
+				{
+					"name": "create_order",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var valid_status = pm.test(\"Expected status: 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"var valid_response = pm.test(\"Valid Response\", function () {",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json;",
+									"});",
+									"",
+									"var data = JSON.parse(responseBody);",
+									"",
+									"postman.setEnvironmentVariable('order_no', data.order_no);",
+									"",
+									"if (data.payment_instruments && data.payment_instruments.length) {",
+									"    postman.setEnvironmentVariable('payment_instrument_id', data.payment_instruments[0].payment_instrument_id)",
+									"}",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"basket_id\": \"{{basket_id}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{shop_url}}/orders",
+							"host": [
+								"{{shop_url}}"
+							],
+							"path": [
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update_order",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"customer_info\": {\n\t\t\"email\": \"{{customer_email}}\"\n\t},\n\t\"c_gameClassMapping\": {\n\t\t\"class_2\": \"gameClassID2\",\n\t\t\"class_3\": \"gameClassID3\"\n\t}\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{shop_url}}/orders/{{order_no}}",
+							"host": [
+								"{{shop_url}}"
+							],
+							"path": [
+								"orders",
+								"{{order_no}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "authorize_order_credit_card",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"payment_card\": {\n        \"card_type\": \"Visa\",\n        \"expiration_month\": 12,\n        \"expiration_year\": 2031,\n        \"holder\": \"John Doe\",\n        \"number\": \"4111111111111111\",\n        \"security_code\": \"838\"\n    },\n    \"payment_method_id\": \"{{payment_method}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{shop_url}}/orders/{{order_no}}/payment_instruments/{{payment_instrument_id}}",
+							"host": [
+								"{{shop_url}}"
+							],
+							"path": [
+								"orders",
+								"{{order_no}}",
+								"payment_instruments",
+								"{{payment_instrument_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "authorize_order_customer_credit_card",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"customer_payment_instrument_id\": \"{{customer_payment_instrument_id}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{shop_url}}/orders/{{order_no}}/payment_instruments/{{payment_instrument_id}}",
+							"host": [
+								"{{shop_url}}"
+							],
+							"path": [
+								"orders",
+								"{{order_no}}",
+								"payment_instruments",
+								"{{payment_instrument_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "authorize_order_class_pay",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"payment_method_id\": \"CLASS_PAY\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{shop_url}}/orders/{{order_no}}/payment_instruments/{{payment_instrument_id}}",
+							"host": [
+								"{{shop_url}}"
+							],
+							"path": [
+								"orders",
+								"{{order_no}}",
+								"payment_instruments",
+								"{{payment_instrument_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "authorize_order_pay_later",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"payment_method_id\": \"PAY_LATER\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{shop_url}}/orders/{{order_no}}/payment_instruments/{{payment_instrument_id}}",
+							"host": [
+								"{{shop_url}}"
+							],
+							"path": [
+								"orders",
+								"{{order_no}}",
+								"payment_instruments",
+								"{{payment_instrument_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "app_payment",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"amount\": 310,\n\t\"payment_method_id\": \"CLASS_PAY\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{shop_url}}/orders/{{order_no}}/payment_instruments",
+							"host": [
+								"{{shop_url}}"
+							],
+							"path": [
+								"orders",
+								"{{order_no}}",
+								"payment_instruments"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "fail_order",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"status\" : \"failed\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{shop_url}}/orders/{{order_no}}",
+							"host": [
+								"{{shop_url}}"
+							],
+							"path": [
+								"orders",
+								"{{order_no}}"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "apikey",
+				"apikey": [
+					{
+						"key": "value",
+						"value": "{{jwt_token}}",
+						"type": "string"
+					},
+					{
+						"key": "key",
+						"value": "Authorization",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "products",
+			"item": [
+				{
+					"name": "get_product_info",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-dw-client-id",
+								"value": "{{client_id}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{shop_url}}/products/arc_saturn_parable_global_youth?expand=prices,promotions,images,options,variations",
+							"host": [
+								"{{shop_url}}"
+							],
+							"path": [
+								"products",
+								"arc_saturn_parable_global_youth"
+							],
+							"query": [
+								{
+									"key": "expand",
+									"value": "prices,promotions,images,options,variations"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

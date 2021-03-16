@@ -1,0 +1,41 @@
+{
+    "_v": "21.3",
+    "clients": [
+        {
+            "allowed_origins": ["https://api.zinrelo.com", "https://zinrelo.com"],
+            "client_id": "8c369f2a-f9f4-48ee-8474-778884dbb711",
+            "resources": [
+                {
+                    "resource_id": "/customers",
+                    "methods": ["post"],
+                    "read_attributes": "(**)",
+                    "write_attributes": "(**)"
+                },
+                {
+                    "resource_id": "/customers/*",
+                    "methods": ["post", "get", "patch"],
+                    "read_attributes": "(**)",
+                    "write_attributes": "(**)"
+                },
+                {
+                    "resource_id": "/orders",
+                    "methods": ["post"],
+                    "read_attributes": "(**)",
+                    "write_attributes": "(**)"
+                },
+                {
+                    "resource_id": "/orders/*",
+                    "methods": ["get", "put", "patch"],
+                    "read_attributes": "(**)",
+                    "write_attributes": "(**)"
+                },
+                {
+                    "resource_id": "/orders/*/payment_methods",
+                    "methods": ["get"],
+                    "read_attributes": "(**)",
+                    "write_attributes": "(**)"
+                }
+            ]
+        }
+    ]
+}
